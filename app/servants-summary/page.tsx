@@ -1,10 +1,7 @@
 import NavBar from "@/components/NavBar";
 import MonthPicker from "@/components/MonthPicker";
 import BarChart from "@/components/BarChart";
-import ServantsGate from "@/components/ServantsGate";
-import NotConfigured from "@/components/NotConfigured";
 import { getServantsMonth } from "@/lib/reports";
-import { servantsGateState } from "@/lib/servants-gate";
 import { currentMonth, isValidMonth } from "@/lib/month";
 import { SERVANT_FIELDS } from "@/lib/types";
 
@@ -15,18 +12,6 @@ export default async function ServantsSummaryPage({
 }: {
   searchParams: Promise<{ month?: string }>;
 }) {
-  const gate = await servantsGateState();
-  if (gate !== "open") {
-    return (
-      <>
-        <NavBar title="ملخص الشهر — الخدام" back="/" />
-        <main className="max-w-4xl mx-auto px-3 py-4">
-          {gate === "not-configured" ? <NotConfigured /> : <ServantsGate />}
-        </main>
-      </>
-    );
-  }
-
   const { month: raw } = await searchParams;
   const month = isValidMonth(raw) ? raw : currentMonth();
   const { sessions, servants } = await getServantsMonth(month);

@@ -18,6 +18,8 @@
 | `/attendance/students` | تسجيل حضور المخدومين |
 | `/attendance/servants` | تسجيل حضور الخدام |
 | `/students` | بيانات كل المخدومين (بحث بالاسم أو التليفون) |
+| `/students/new` | تسجيل مخدوم جديد |
+| `/absent` | غياب اليوم |
 | `/students/[id]` | ملف المخدوم: بياناته + سجل حضوره + نِسَبه |
 | `/reports` | ملخص آخر ١٥ يوم |
 
@@ -44,7 +46,6 @@ npm run dev
 ```
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SERVANTS_PASSCODE=   # الكود السري لسكشن الخدام — لو مش متظبّط السكشن بيتقفل
 ```
 
 ## الأمان

@@ -2,7 +2,6 @@ import Link from "next/link";
 import NavBar from "@/components/NavBar";
 import { createClient } from "@/lib/supabase/server";
 import { STUDENT_FIELDS, SERVANT_FIELDS, formatArabicDate } from "@/lib/types";
-import { servantsGateState } from "@/lib/servants-gate";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +9,7 @@ type SessionRow = { id: number; session_date: string; is_monthly_mass: boolean }
 
 export default async function ReportsPage() {
   const supabase = await createClient();
-  const servantsUnlocked = (await servantsGateState()) === "open";
+  const servantsUnlocked = true;
 
   const { data: sessions } = await supabase
     .from("sessions")

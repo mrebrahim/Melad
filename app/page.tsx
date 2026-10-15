@@ -2,14 +2,12 @@ import Link from "next/link";
 import NavBar from "@/components/NavBar";
 import { createClient } from "@/lib/supabase/server";
 import { todayISO, formatArabicDate } from "@/lib/types";
-import { servantsGateState } from "@/lib/servants-gate";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const supabase = await createClient();
   const today = todayISO();
-  const servantsLocked = (await servantsGateState()) !== "open";
 
   const [{ count: studentsCount }, { count: servantsCount }] = await Promise.all([
     supabase.from("students").select("*", { count: "exact", head: true }).eq("is_active", true),
@@ -28,7 +26,7 @@ export default async function HomePage() {
     {
       href: `/attendance/servants?date=${today}`,
       emoji: "🙏",
-      title: servantsLocked ? "حضور الخدام 🔒" : "حضور الخدام",
+      title: "حضور الخدام",
       desc: "التحضير • الافتقاد • القداس • التناول • الاجتماعات • الخدمة",
       count: servantsCount ?? 0,
       unit: "خادم",
@@ -60,22 +58,10 @@ export default async function HomePage() {
       desc: "مين جه ومين ما جاش وتحليل بياني",
     },
     {
-      href: "/birthdays",
-      emoji: "🎂",
-      title: "أعياد الميلاد",
-      desc: "أعياد ميلاد كل شهر من أكتوبر لسبتمبر",
-    },
-    {
       href: "/servants-summary",
-      emoji: servantsLocked ? "🔒" : "🙌",
+      emoji: "🙌",
       title: "ملخص الشهر — الخدام",
       desc: "مين بيحضر ومين بيفتقد ومين بيجي القداس",
-    },
-    {
-      href: "/visitation",
-      emoji: servantsLocked ? "🔒" : "🏠",
-      title: "الافتقاد",
-      desc: "كل خادم بيفتقد ولا لأ، أسبوع بأسبوع",
     },
     {
       href: "/reports",
